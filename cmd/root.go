@@ -12,7 +12,13 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
-const hegelAddr = "metadata.packet.net:50060"
+var hegelAddr = os.Getenv("HEGEL_ADDR")
+
+func init() {
+	if hegelAddr == "" {
+		hegelAddr = "metadata.packet.net:50060"
+	}
+}
 
 func runHegelClient(f func(hegel.HegelClient)) {
 	certPool, err := x509.SystemCertPool()
