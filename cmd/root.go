@@ -12,11 +12,13 @@ import (
 	"google.golang.org/grpc/credentials"
 )
 
+const hegelAddr = "metadata.packet.net:50060"
+
 var hegelClient hegel.HegelClient
 
 func init() {
 	cred := credentials.NewClientTLSFromCert(x509.NewCertPool(), "")
-	conn, err := grpc.Dial("hegel.packet.net:50060", grpc.WithTransportCredentials(cred))
+	conn, err := grpc.Dial(hegelAddr, grpc.WithTransportCredentials(cred))
 	if err != nil {
 		log.Fatal(err)
 	}
