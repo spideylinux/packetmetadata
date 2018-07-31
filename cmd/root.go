@@ -14,9 +14,7 @@ import (
 
 const hegelAddr = "metadata.packet.net:50060"
 
-var hegelClient hegel.HegelClient
-
-func init() {
+func runHegelClient(f func(hegel.HegelClient)) {
 	certPool, err := x509.SystemCertPool()
 	if err != nil {
 		log.Fatal(err)
@@ -27,8 +25,7 @@ func init() {
 		log.Fatal(err)
 	}
 	defer conn.Close()
-
-	hegelClient = hegel.NewHegelClient(conn)
+	f(hegel.NewHegelClient(conn))
 }
 
 var rootCmd = &cobra.Command{
