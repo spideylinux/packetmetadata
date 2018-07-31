@@ -24,8 +24,8 @@ func runHegelClient(f func(hegel.HegelClient)) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer conn.Close()
 	f(hegel.NewHegelClient(conn))
+	conn.Close()
 }
 
 var rootCmd = &cobra.Command{
