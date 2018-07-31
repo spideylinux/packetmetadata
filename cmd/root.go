@@ -17,7 +17,11 @@ const hegelAddr = "metadata.packet.net:50060"
 var hegelClient hegel.HegelClient
 
 func init() {
-	cred := credentials.NewClientTLSFromCert(x509.NewCertPool(), "")
+	certPool, err := x509.SystemCertPool()
+	if err != nil {
+		log.Fatal(err)
+	}
+	cred := credentials.NewClientTLSFromCert(certPool, "")
 	conn, err := grpc.Dial(hegelAddr, grpc.WithTransportCredentials(cred))
 	if err != nil {
 		log.Fatal(err)
