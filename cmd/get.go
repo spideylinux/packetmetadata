@@ -19,9 +19,9 @@ var cmdGet = &cobra.Command{
 			res, err := hegelClient.Get(context.Background(), &hegel.GetRequest{})
 			if err != nil {
 				cmd.Println("error: ", err)
-			} else {
-				cmd.Println(res.JSON)
+				return
 			}
+			cmd.Println(res.JSON)
 		})
 	},
 }
