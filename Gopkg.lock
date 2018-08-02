@@ -2,12 +2,6 @@
 
 
 [[projects]]
-  branch = "master"
-  name = "github.com/buger/jsonparser"
-  packages = ["."]
-  revision = "2cac668e8456b4284edb0715e17e2af02d3ec993"
-
-[[projects]]
   name = "github.com/golang/protobuf"
   packages = [
     "proto",
@@ -36,6 +30,18 @@
   packages = ["."]
   revision = "583c0c0531f06d5278b7d917446061adc344b5cd"
   version = "v1.0.1"
+
+[[projects]]
+  name = "github.com/tidwall/gjson"
+  packages = ["."]
+  revision = "f123b340873a0084cb27267eddd8ff615115fbff"
+  version = "v1.1.2"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/tidwall/match"
+  packages = ["."]
+  revision = "1731857f09b1f38450e2c12409748407822dc6be"
 
 [[projects]]
   branch = "master"
@@ -113,6 +119,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "78cdbf08d1fc69412c8fd58e845d8221fc41fbbc4ddba7f1c22a0b81e6228cd7"
+  inputs-digest = "ed7e40dd0924762b8e44b8494a572b6a3a9420d17a9c5c2a794c6fcddde67f74"
   solver-name = "gps-cdcl"
   solver-version = 1

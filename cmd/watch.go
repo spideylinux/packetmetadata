@@ -2,11 +2,9 @@ package cmd
 
 import (
 	"context"
-	"encoding/json"
 	"reflect"
-	"strings"
 
-	"github.com/buger/jsonparser"
+	"github.com/tidwall/gjson"
 
 	"github.com/packethost/hegel-client/hegel"
 	"github.com/spf13/cobra"
@@ -29,20 +27,13 @@ var cmdWatch = &cobra.Command{
 				return
 			}
 
-			keyPath := strings.Split(args[0], ".")
-
-			val, _, _, err := jsonparser.Get([]byte(currentHW.JSON), keyPath...)
+			val := gjson.Get(currentHW.JSON, args[0])
 			if err != nil {
 				cmd.Println("error: ", err)
 				return
 			}
 
-			var parsedCurrentHw interface{}
-			err = json.Unmarshal(val, &parsedCurrentHw)
-			if err != nil {
-				cmd.Println("error: ", err)
-				return
-			}
+			parsedCurrentHw := val.Value()
 
 			client, err := hegelClient.Subscribe(ctx, &hegel.SubscribeRequest{})
 			if err != nil {
@@ -58,18 +49,13 @@ var cmdWatch = &cobra.Command{
 					return
 				}
 
-				val, _, _, err := jsonparser.Get([]byte(newHw.JSON), keyPath...)
+				val := gjson.Get(newHw.JSON, args[0])
 				if err != nil {
 					cmd.Println("error: ", err)
 					return
 				}
 
-				var parsedNewHw interface{}
-				err = json.Unmarshal(val, &parsedNewHw)
-				if err != nil {
-					cmd.Println("error: ", err)
-					return
-				}
+				parsedNewHw := val.Value()
 
 				if reflect.DeepEqual(parsedNewHw, parsedCurrentHw) {
 					continue
