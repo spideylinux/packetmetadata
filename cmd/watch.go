@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"reflect"
+	"strings"
 
 	"github.com/buger/jsonparser"
 
@@ -28,7 +29,9 @@ var cmdWatch = &cobra.Command{
 				return
 			}
 
-			val, _, _, err := jsonparser.Get([]byte(currentHW.JSON), args[0])
+			keyPath := strings.Split(args[0], ".")
+
+			val, _, _, err := jsonparser.Get([]byte(currentHW.JSON), keyPath...)
 			if err != nil {
 				cmd.Println("error: ", err)
 				return
@@ -55,7 +58,7 @@ var cmdWatch = &cobra.Command{
 					return
 				}
 
-				val, _, _, err := jsonparser.Get([]byte(newHw.JSON), args[0])
+				val, _, _, err := jsonparser.Get([]byte(newHw.JSON), keyPath...)
 				if err != nil {
 					cmd.Println("error: ", err)
 					return
