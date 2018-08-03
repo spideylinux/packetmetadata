@@ -2,6 +2,12 @@
 
 
 [[projects]]
+  name = "github.com/evanphx/json-patch"
+  packages = ["."]
+  revision = "afac545df32f2287a079e2dfb7ba2745a643747e"
+  version = "v3.0.0"
+
+[[projects]]
   name = "github.com/golang/protobuf"
   packages = [
     "proto",
@@ -119,6 +125,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ed7e40dd0924762b8e44b8494a572b6a3a9420d17a9c5c2a794c6fcddde67f74"
+  inputs-digest = "2cd6357fef4b808708bdc4bebaa5a5ea789c3fae4e099b6ea003bd2311dd7015"
   solver-name = "gps-cdcl"
   solver-version = 1

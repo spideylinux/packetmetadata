@@ -4,6 +4,7 @@ import (
 	"context"
 	"reflect"
 
+	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/tidwall/gjson"
 
 	"github.com/packethost/hegel-client/hegel"
@@ -61,9 +62,15 @@ var cmdWatch = &cobra.Command{
 					continue
 				}
 
+				patch, err := jsonpatch.CreateMergePatch([]byte(currentHW.JSON), []byte(newHw.JSON))
+				if err != nil {
+					cmd.Println("error: ", err)
+					return
+				}
+
 				parsedCurrentHw = parsedNewHw
 
-				cmd.Println(parsedNewHw)
+				cmd.Println(parsedNewHw, string(patch))
 			}
 		})
 	},
