@@ -75,16 +75,14 @@ var cmdWatch = &cobra.Command{
 
 		go func() {
 			for {
-				newState := <-res
-				cmd.Println(string(newState.JSON))
-			}
-		}()
-
-		go func() {
-			for {
 				newError := <-errs
 				cmd.Println("error: ", newError)
 			}
 		}()
+
+		for {
+			newState := <-res
+			cmd.Println(string(newState.JSON))
+		}
 	},
 }
