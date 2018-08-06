@@ -73,6 +73,7 @@ func Watch() (chan WatchResult, chan error, error) {
 			newResponse, err := client.Recv()
 			if err != nil {
 				errorChannel <- err
+				continue
 			}
 			newState := newResponse.JSON
 			resultChanel <- WatchResult{JSON: []byte(newState)}
