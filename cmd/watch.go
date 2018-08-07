@@ -21,7 +21,11 @@ var cmdWatch = &cobra.Command{
 		}
 
 		for {
-			newState := iterator.Next()
+			newState, err := iterator.Next()
+			if err != nil {
+				cmd.Println("error: ", err)
+				return
+			}
 			cmd.Println(string(newState.JSON))
 		}
 	},
