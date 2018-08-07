@@ -34,6 +34,9 @@ var cmdWatch = &cobra.Command{
 				cmd.Println("error: ", err)
 				return
 			}
+			if jsonpatch.Equal(currentState, newState) {
+				continue
+			}
 			patch, err := jsonpatch.CreateMergePatch(currentState, newState)
 			if err != nil {
 				cmd.Println("error: ", err)
