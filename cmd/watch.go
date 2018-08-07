@@ -27,7 +27,7 @@ var cmdWatch = &cobra.Command{
 				return
 			}
 
-			cmd.Println(string(next.JSON), string(next.Patch))
+			cmd.Println(string(next.Patch))
 		}
 	},
 }

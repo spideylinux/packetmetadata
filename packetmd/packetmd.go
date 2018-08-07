@@ -98,6 +98,7 @@ func Watch() (*WatchIterator, error) {
 					JSON:  []byte(newResponse.JSON),
 					Patch: patch,
 				}
+				currentState = newState
 			}
 		}
 	}(stopChan)
