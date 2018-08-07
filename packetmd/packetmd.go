@@ -3,6 +3,7 @@ package packetmd
 import (
 	"context"
 	"crypto/x509"
+	"fmt"
 
 	"github.com/packethost/hegel-client/hegel"
 	"google.golang.org/grpc"
@@ -14,6 +15,12 @@ var hegelAddr = "metadata.packet.net:50060"
 // WatchResult represents a change in metadata
 type WatchResult struct {
 	JSON []byte
+}
+
+// WatchIterator is a struct for iterating over watch results
+type WatchIterator struct {
+	Next  func() WatchResult
+	Close func() error
 }
 
 func getHegelClient() (hegel.HegelClient, func() error, error) {
@@ -44,41 +51,44 @@ func Get() ([]byte, error) {
 }
 
 // Watch returns a channel that outputs JSON
-func Watch() (chan WatchResult, chan error, error) {
-	resultChanel := make(chan WatchResult)
-	errorChannel := make(chan error)
+func Watch() (*WatchIterator, error) {
 	var currentState string
 
 	hegelClient, close, err := getHegelClient()
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
-	defer close()
 
 	res, err := hegelClient.Get(context.Background(), &hegel.GetRequest{})
 	if err != nil {
-		errorChannel <- err
+		return nil, err
 	}
 
 	currentState = res.JSON
-	resultChanel <- WatchResult{JSON: []byte(currentState)}
+
+	iterator := &WatchIterator{
+		Next: func() WatchResult {
+			return WatchResult{
+				JSON: []byte(currentState),
+			}
+		},
+		Close: close,
+	}
 
 	client, err := hegelClient.Subscribe(context.Background(), &hegel.SubscribeRequest{})
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	go func() {
 		for {
 			newResponse, err := client.Recv()
 			if err != nil {
-				errorChannel <- err
-				continue
+				fmt.Println(err)
 			}
 			newState := newResponse.JSON
-			resultChanel <- WatchResult{JSON: []byte(newState)}
 			currentState = newState
 		}
 	}()
-	return resultChanel, errorChannel, nil
+	return iterator, nil
 }
