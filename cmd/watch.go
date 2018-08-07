@@ -39,6 +39,7 @@ var cmdWatch = &cobra.Command{
 				cmd.Println("error: ", err)
 				return
 			}
+			currentState = newState
 			cmd.Println(string(patch))
 		}
 	},
