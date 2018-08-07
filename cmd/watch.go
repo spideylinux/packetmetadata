@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	jsonpatch "github.com/evanphx/json-patch"
 	"github.com/packethost/hegel-client/packetmd"
 	"github.com/spf13/cobra"
 )
@@ -21,29 +20,14 @@ var cmdWatch = &cobra.Command{
 			return
 		}
 
-		currentState, err := packetmd.Get()
-		if err != nil {
-			cmd.Println("error: ", err)
-			return
-		}
-
 		for {
 			next, err := iterator.Next()
-			newState := next.JSON
 			if err != nil {
 				cmd.Println("error: ", err)
 				return
 			}
-			if jsonpatch.Equal(currentState, newState) {
-				continue
-			}
-			patch, err := jsonpatch.CreateMergePatch(currentState, newState)
-			if err != nil {
-				cmd.Println("error: ", err)
-				return
-			}
-			currentState = newState
-			cmd.Println(string(patch))
+
+			cmd.Println(string(next.JSON), string(next.Patch))
 		}
 	},
 }
