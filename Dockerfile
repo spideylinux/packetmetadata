@@ -5,5 +5,5 @@ COPY . .
 
 RUN apk add --update --upgrade ca-certificates
 
-RUN go build -o cmd/packetmetada
+# RUN go build -o cmd/packetmetada
 ENTRYPOINT [ "cmd/packetmetada" ]
