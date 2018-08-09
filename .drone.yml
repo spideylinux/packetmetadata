@@ -2,7 +2,7 @@
 
 workspace:
   base: /go
-  path: src/github.com/packethost/hegel-client
+  path: src/github.com/packethost/packetmetadata
 
 pipeline:
   lint:
@@ -25,13 +25,13 @@ pipeline:
     group: ci
     image: golang:1.10-alpine
     commands:
-      - CGO_ENABLED=0 go build
+      - CGO_ENABLED=0 go build -o cmd/packetmetada
 
   publish_hegel_client_build:
     group: publish
     image: plugins/docker
     registry: quay.io
-    repo: quay.io/packet/hegel-client
+    repo: quay.io/packet/packetmetadata
     tags: ${DRONE_BRANCH/\//-}
     when:
       event: [push]
@@ -41,7 +41,7 @@ pipeline:
     group: publish
     image: plugins/docker
     registry: quay.io
-    repo: quay.io/packet/hegel-client
+    repo: quay.io/packet/packetmetadata
     tags: ${DRONE_TAG}
     when:
       event: [tag]

@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/packethost/hegel-client/packetmd"
+	"github.com/packethost/packetmetadata/packetmetadata"
 	"github.com/spf13/cobra"
 )
 
@@ -12,9 +12,8 @@ func init() {
 var cmdWatch = &cobra.Command{
 	Use:   "watch",
 	Short: "Watch for metadata changes",
-	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		iterator, err := packetmd.Watch()
+		iterator, err := packetmetadata.Watch()
 		if err != nil {
 			cmd.Println("error: ", err)
 			return

@@ -16,9 +16,9 @@ func init() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "hegel-client",
+	Use:   "packet-metadata",
 	Short: "Packet metadata client",
-	Long:  `Hegel is Packet's gRPC metadata service, this is a client for it`,
+	Long:  `This is a client for Packet's gRPC metadata service`,
 }
 
 // Execute is the root command

@@ -1,10 +1,9 @@
 FROM golang:alpine
 
-WORKDIR /go/src/github.com/packethost/hegel-client
+WORKDIR /go/src/github.com/packethost/packetmetada
 COPY . .
 
 RUN apk add --update --upgrade ca-certificates
-# ADD hegel cmd/hegel-client
 
-RUN go build -o cmd/hegel-client
-ENTRYPOINT [ "cmd/hegel-client" ]
+RUN go build -o cmd/packetmetada
+ENTRYPOINT [ "cmd/packetmetada" ]
