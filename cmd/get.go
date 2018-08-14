@@ -13,11 +13,11 @@ var cmdGet = &cobra.Command{
 	Use:   "get",
 	Short: "Get metadata",
 	Run: func(cmd *cobra.Command, args []string) {
-		res, parsed, err := packetmetadata.Get()
+		res, _, err := packetmetadata.Get()
 		if err != nil {
 			cmd.Println("error: ", err)
 			return
 		}
-		cmd.Println(string(res), parsed.Instance.ID, parsed.Instance.OS, parsed.Instance.Tags)
+		cmd.Println(string(res))
 	},
 }
