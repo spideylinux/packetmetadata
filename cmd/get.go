@@ -18,6 +18,6 @@ var cmdGet = &cobra.Command{
 			cmd.Println("error: ", err)
 			return
 		}
-		cmd.Println(string(res), parsed.ID)
+		cmd.Println(string(res), parsed.Instance.ID, parsed.Instance.OS, parsed.Instance.Tags)
 	},
 }
