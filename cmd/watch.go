@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/packethost/packetmetadata/packetmetadata"
 	"github.com/spf13/cobra"
 )
@@ -13,6 +15,7 @@ var cmdWatch = &cobra.Command{
 	Use:   "watch",
 	Short: "Watch for metadata changes",
 	Run: func(cmd *cobra.Command, args []string) {
+		cmd.SetOutput(os.Stdout)
 		iterator, err := packetmetadata.Watch()
 		if err != nil {
 			cmd.Println("error: ", err)
