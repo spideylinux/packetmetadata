@@ -26,10 +26,10 @@
   version = "v1.0"
 
 [[projects]]
+  branch = "master"
   name = "github.com/packethost/packngo"
   packages = ["."]
-  revision = "131798f2804a1b3e895ca98047d56f0d7e094e2a"
-  version = "v0.1.0"
+  revision = "3e366203a129ebb34bfb2af239e16f2c96034a65"
 
 [[projects]]
   name = "github.com/spf13/cobra"
@@ -126,6 +126,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "c1533815a547ba6d9e0c6af7aa8aaf2f7fc1fb28cd4cc60f046937e7ce8eede2"
+  inputs-digest = "27055691c74a860b07ea40b63a4e676cbae69b44df1ddbd88d816ba0050c7dab"
   solver-name = "gps-cdcl"
   solver-version = 1
